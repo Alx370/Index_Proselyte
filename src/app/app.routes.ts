@@ -5,6 +5,6 @@ export const routes: Routes = [
     {
         path: '',
         component: ProselyteHome,
-        title: 'The Index - Home'
+        title: 'Index Proselyte'
     },
 ];
