@@ -1,17 +1,26 @@
-import {afterNextRender, Component, computed, signal} from "@angular/core";
+import {afterNextRender, ChangeDetectionStrategy, Component, computed, signal} from "@angular/core";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {storageSignal} from "../../utility/storage-signal";
+import {Footer} from "../shared/footer/footer";
+import {Header} from "../shared/header/header";
 
 @Component({
   selector: "app-proselyte-home",
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Footer,
+    Header
   ],
   templateUrl: "./proselyte-home.html",
   styleUrl: "./proselyte-home.css",
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class ProselyteHome {
-  private readonly storageNameKey = 'name';
+  protected readonly savedName = storageSignal('name');
+
+  protected readonly hasName  = computed(() => this.savedName() !== null);
+  protected readonly greeting = computed(() => this.getPreludeText(this.savedName()));
 
   protected readonly nameForm = new FormGroup({
     name: new FormControl<string>('', {
@@ -20,38 +29,18 @@ export class ProselyteHome {
     })
   });
 
-  protected readonly savedName = signal<string | null>(null);
-  protected readonly greeting = signal<string>('');
-
-  constructor() {
-    afterNextRender(() => {
-      const storedName = localStorage.getItem(this.storageNameKey);
-      if (storedName) {
-        this.savedName.set(storedName);
-        this.greeting.set(this.getPreludeText(storedName));
-      }
-    });
-  }
-
-  protected hasName(): boolean {
-    return this.savedName() !== null;
-  }
-
   protected registerName(): void {
-    const typedValue = this.nameForm.controls.name.value.trim();
-    const finalName = typedValue === '' ? 'an Index Proselyte' : typedValue;
-
-    localStorage.setItem(this.storageNameKey, finalName);
-
-    this.savedName.set(finalName);
-    this.greeting.set(this.getPreludeText(finalName));
+    const typed = this.nameForm.controls.name.value.trim();
+    this.savedName.set(typed || 'an Index Proselyte');
+    this.nameForm.reset();
   }
 
   protected clearName(): void {
-    localStorage.removeItem(this.storageNameKey);
     this.savedName.set(null);
-    this.greeting.set('');
     this.nameForm.reset({ name: '' });
+  }
+
+  protected drawPrescript() {
   }
 
   private getPreludeText(nameValue: string | null): string {
