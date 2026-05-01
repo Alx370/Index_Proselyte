@@ -1,13 +1,13 @@
 main.home-shell {
     font-family: Galmuri14, Helvetica, sans-serif;
-    font-size: 15px;
-    margin: 40px auto;
+    font-size: 13px;
     width: 650px;
+    margin: 40px auto;
 }
 
 header {
-    text-align: center;
     margin-bottom: 30px;
+    text-align: center;
 }
 
 .logo {
@@ -17,8 +17,8 @@ header {
 }
 
 h1 {
-    font-size: 2em;
     margin-bottom: 10px;
+    font-size: 2em;
 }
 
 .subtitle {
@@ -27,11 +27,11 @@ h1 {
 }
 
 .panel {
+    margin-bottom: 20px;
+    padding: 20px;
     background-color: #111;
     border: 1px solid #333;
     border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
 }
 
 form {
@@ -47,57 +47,61 @@ label {
     color: #96c4ec;
 }
 
-input[type=text] {
-    background-color: black;
-    color: aliceblue;
-    border: 1px solid #555;
-    border-radius: 4px;
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+input[type="text"] {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
     font-family: Galmuri14, Helvetica, sans-serif;
     font-size: 15px;
-    padding: 10px;
-    width: 100%;
-    box-sizing: border-box;
+    color: aliceblue;
+    background-color: black;
+    border: 1px solid #555;
+    border-radius: 4px;
     transition: border-color 0.2s;
 }
 
-input[type=text]:focus {
-    outline: none;
+input[type="text"]:focus {
     border-color: #96c4ec;
+    outline: none;
 }
 
-input[type=submit], button {
+input[type="submit"],
+button {
+    align-self: flex-start;
+    padding: 6px 12px;
     font-family: Galmuri14, Helvetica, sans-serif;
-    font-size: 15px;
-    background-color: black;
+    font-size: 13px;
     color: #96c4ec;
+    background-color: black;
     border: 1px solid #96c4ec;
     border-radius: 4px;
-    padding: 10px 20px;
     cursor: pointer;
     transition: all 0.2s;
-    align-self: flex-start;
 }
 
-input[type=submit]:hover, button:hover {
+input[type="submit"]:hover,
+button:hover {
     color: #f0f8ff;
-    border-color: #f0f8ff;
     background-color: #222;
+    border-color: #f0f8ff;
 }
 
 .to-line {
-    font-weight: bold;
-    font-size: 1.2em;
     margin-bottom: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
 }
 
 .greeting {
-    line-height: 1.6;
     margin-bottom: 20px;
-}
-
-.actions {
-    margin-top: 20px;
-    text-align: right;
+    line-height: 1.6;
 }
 
 a {

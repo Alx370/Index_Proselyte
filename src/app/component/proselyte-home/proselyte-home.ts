@@ -1,8 +1,9 @@
-import {afterNextRender, ChangeDetectionStrategy, Component, computed, signal} from "@angular/core";
+import {ChangeDetectionStrategy, Component, computed, inject} from "@angular/core";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {storageSignal} from "../../utility/storage-signal";
 import {Footer} from "../shared/footer/footer";
 import {Header} from "../shared/header/header";
+import {Router} from "@angular/router";
 
 @Component({
   selector: "app-proselyte-home",
@@ -18,6 +19,7 @@ import {Header} from "../shared/header/header";
 
 export class ProselyteHome {
   protected readonly savedName = storageSignal('name');
+  private readonly router = inject(Router);
 
   protected readonly hasName  = computed(() => this.savedName() !== null);
   protected readonly greeting = computed(() => this.getPreludeText(this.savedName()));
@@ -41,6 +43,11 @@ export class ProselyteHome {
   }
 
   protected drawPrescript() {
+      this.router.navigate(['/prescript'], {
+        state: {
+          name: this.savedName()
+        }
+      });
   }
 
   private getPreludeText(nameValue: string | null): string {
