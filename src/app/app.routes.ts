@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import {ProselyteHome} from "./component/proselyte-home/proselyte-home";
+import {PrescriptMessage} from "./component/prescript-message/prescript-message";
 
 export const routes: Routes = [
     {
@@ -7,4 +8,9 @@ export const routes: Routes = [
         component: ProselyteHome,
         title: 'Index Proselyte'
     },
+    {
+        path: 'prescript',
+        component: PrescriptMessage,
+        title: 'Prescript'
+    }
 ];
