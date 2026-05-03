@@ -14,6 +14,11 @@ export class PrescriptMessage implements OnInit {
 
   protected readonly userName = signal('');
   protected readonly prescriptText = signal('');
+  protected readonly isTyping = signal(false);
+  protected readonly isCleared = signal(false);
+
+  private readonly speed = 50;
+  private typingTimer: ReturnType<typeof setInterval> | null = null;
 
   private readonly timestamp_general = [' hours', ' days', ' weeks', ' months'];
   private randomTimestampSelect = 0;
@@ -28,12 +33,40 @@ export class PrescriptMessage implements OnInit {
     return '【To ' + this.userName() + '】';
   }
 
-  protected clearPrescript(): void{
-    this.prescriptText.set('【 _CLEAR._ 】');
+  private typeEffect(fullText: string): void {
+    if (this.typingTimer !== null) {
+      clearInterval(this.typingTimer);
+    }
+
+    this.prescriptText.set('');
+    this.isTyping.set(true);
+
+    let i = 0;
+    this.typingTimer = setInterval(() => {
+      if (i < fullText.length) {
+        this.prescriptText.update(current => current + fullText.charAt(i));
+        i++;
+      } else {
+        clearInterval(this.typingTimer!);
+        this.typingTimer = null;
+        this.isTyping.set(false);
+      }
+    }, this.speed);
+  }
+
+  protected clearPrescript(): void {
+    if (this.typingTimer !== null) {
+      clearInterval(this.typingTimer);
+      this.typingTimer = null;
+    }
+    this.prescriptText.set('【_CLEAR._】');
+    this.isTyping.set(false);
+    this.isCleared.set(true);
   }
 
   protected newPrescriptDisplay(): void {
-    this.prescriptText.set(this.generatePrescript());
+    this.isCleared.set(false);
+    this.typeEffect(this.generatePrescript());
   }
 
   private rand(max: number): number {

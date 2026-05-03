@@ -9,13 +9,18 @@
         </div>
 
         <div class="prescript-actions">
-            <button type="button" (click)="clearPrescript()">Prescript Complete</button>
-            <button type="button" (click)="newPrescriptDisplay()">Draw another Prescript</button>
+            @if (isCleared()) {
+                <button type="button" (click)="newPrescriptDisplay()">Draw a Prescript</button>
+            } @else if (prescriptText()) {
+                <button type="button" (click)="clearPrescript()" [disabled]="isTyping()">Prescript Complete</button>
+            } @else {
+                <button type="button" (click)="newPrescriptDisplay()">Draw a Prescript</button>
+            }
         </div>
     </div>
 
-    <div class="footer-area">
-        <div class="footer-divider"></div>
-        <app-footer></app-footer>
-    </div>
+        <div class="footer-area">
+            <div class="footer-divider"></div>
+            <app-footer></app-footer>
+        </div>
 </main>

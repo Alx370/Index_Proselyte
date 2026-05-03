@@ -35,12 +35,11 @@ main.prescript-shell {
     align-items: flex-start;
 
     width: 100%;
-    margin-bottom: 28px;
 }
 
 #paperSlipName {
     width: 100%;
-    margin-bottom: 18px;
+    margin-bottom: 1px;
 
     color: #f0f8ff;
     font-size: 1.1em;
@@ -52,9 +51,9 @@ main.prescript-shell {
     margin: 0;
 }
 
-#paperSlipName {
+#prescriptText p {
     width: 100%;
-    margin-bottom: 18px;
+    margin-bottom: 1px;
 
     color: #f0f8ff;
     font-size: 1.1em;
@@ -63,6 +62,7 @@ main.prescript-shell {
 }
 
 .prescript-actions {
+    margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
