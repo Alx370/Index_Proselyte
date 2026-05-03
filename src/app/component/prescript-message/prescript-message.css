@@ -52,8 +52,14 @@ main.prescript-shell {
     margin: 0;
 }
 
-#prescriptText p {
-    margin: 0;
+#paperSlipName {
+    width: 100%;
+    margin-bottom: 18px;
+
+    color: #f0f8ff;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-align: left;
 }
 
 .prescript-actions {

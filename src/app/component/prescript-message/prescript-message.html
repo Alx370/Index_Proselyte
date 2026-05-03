@@ -1,16 +1,16 @@
 <main class="prescript-shell">
     <div id="prescriptMessenger">
         <div id="paperSlipName">
-            <p>{{ NamePrefix() }}</p>
+            <p>{{ namePrefix() }}</p>
         </div>
 
         <div id="prescriptText">
-            <p></p>
+            <p>{{ prescriptText() }}</p>
         </div>
 
         <div class="prescript-actions">
             <button type="button" (click)="clearPrescript()">Prescript Complete</button>
-            <button type="button" (click)="newPrescriptDisplay()">Draw Prescript</button>
+            <button type="button" (click)="newPrescriptDisplay()">Draw another Prescript</button>
         </div>
     </div>
 
