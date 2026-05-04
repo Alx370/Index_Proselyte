@@ -14,6 +14,7 @@ export class App {
     afterNextRender(() => {
       this.audio = document.getElementById('bgMusic') as HTMLAudioElement;
       if (this.audio) {
+        this.audio.volume = 0.2; 
         this.audio.muted = true;
         this.audio.play().catch(() => {});
 
