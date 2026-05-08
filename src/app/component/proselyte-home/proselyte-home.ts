@@ -20,6 +20,7 @@ import {Router} from "@angular/router";
 export class ProselyteHome {
   protected readonly savedName = storageSignal('name');
   private readonly router = inject(Router);
+  protected SAFE_PATTERN = /^[\p{L}\p{N}\s\-_'.]+$/u;
 
   protected readonly hasName  = computed(() => this.savedName() !== null);
   protected readonly greeting = computed(() => this.getPreludeText(this.savedName()));
@@ -27,12 +28,16 @@ export class ProselyteHome {
   protected readonly nameForm = new FormGroup({
     name: new FormControl<string>('', {
       nonNullable: true,
-      validators: [Validators.maxLength(50)]
+      validators: [
+        Validators.maxLength(50),
+        Validators.pattern(/^[\p{L}\p{N}\s\-_'.]*$/u)
+      ]
     })
   });
 
   protected registerName(): void {
     const typed = this.nameForm.controls.name.value.trim();
+    if (typed.length > 50 || (typed && !this.SAFE_PATTERN.test(typed))) return;
     this.savedName.set(typed || 'an Index Proselyte');
     this.nameForm.reset();
   }

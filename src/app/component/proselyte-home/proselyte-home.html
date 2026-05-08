@@ -6,7 +6,12 @@
             <h2 id="identity-title">Who are you?</h2>
             <form [formGroup]="nameForm" (ngSubmit)="registerName()">
                 <label for="name">Insert your name</label>
-                <input id="name" type="text" formControlName="name" maxlength="50" autocomplete="name" />
+                <input id="name" type="text" formControlName="name"
+                       [attr.aria-invalid]="nameForm.controls.name.invalid && nameForm.controls.name.touched"
+                       aria-describedby="name-error" />
+                @if (nameForm.controls.name.errors?.['pattern']) {
+                    <span id="name-error" role="alert">Nome contiene caratteri non validi.</span>
+                }
                 <button type="submit">REGISTER</button>
             </form>
         </section>
